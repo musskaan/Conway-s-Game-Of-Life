@@ -38,4 +38,33 @@ public class Grid {
     public static void evolve() {
         GameEvolver.evolve(grid);
     }
+
+    public boolean isCellAlive(int row, int column) {
+        return isValidCell(row, column) && grid[row][column].isAlive();
+    }
+
+    public void setCellAlive(int row, int col) {
+        if (isValidCell(row, col)) {
+            grid[row][col].setAlive(true);
+        }
+    }
+
+    public void setCellDead(int row, int col) {
+        if (isValidCell(row, col)) {
+            grid[row][col].setAlive(false);
+        }
+    }
+
+    private boolean isValidCell(int row, int col) {
+        return row >= 0 && row < rows && col >= 0 && col < columns;
+    }
+
+    void printCurrentState() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print(isCellAlive(i, j) ? "O " : ". ");
+            }
+            System.out.println();
+        }
+    }
 }
