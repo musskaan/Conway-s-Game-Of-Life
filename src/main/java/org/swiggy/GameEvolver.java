@@ -1,7 +1,16 @@
 package org.swiggy;
 
+/**
+ * Manages the evolution of the game grid according to Conway's Game of Life rules.
+ * Provides methods to evolve the grid, count live neighbors and manage the game state.
+ */
 public class GameEvolver {
 
+    /**
+     * Evolves the given grid to the next generation based on the rules of Conway's Game of Life.
+     *
+     * @param grid The 2D array representing the current state of the game.
+     */
     public static void evolve(Cell[][] grid) {
         int rows = grid.length;
         int columns = grid[0].length;

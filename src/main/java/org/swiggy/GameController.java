@@ -1,5 +1,10 @@
 package org.swiggy;
 
+
+/**
+ * Manages the game logic, including starting and stopping the game loop.
+ * Coordinates interactions between the user and the game grid.
+ */
 public class GameController {
 
     private final Grid game;
@@ -11,6 +16,9 @@ public class GameController {
         isRunning = false;
     }
 
+    /**
+     * Starts the game loop asynchronously. The game will evolve continuously until stopped.
+     */
     public void startGame() {
         isRunning = true;
 
@@ -29,6 +37,9 @@ public class GameController {
         }).start();
     }
 
+    /**
+     * Stops the game loop, allowing the game to exit its continuous evolution.
+     */
     public void stopGame() {
         isRunning = false;
     }

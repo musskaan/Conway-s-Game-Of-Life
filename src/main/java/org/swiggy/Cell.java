@@ -1,5 +1,10 @@
 package org.swiggy;
 
+
+/**
+ * Represents a cell in a 2D grid. Each cell has coordinates (x, y) and a state indicating whether it is alive or dead.
+ * Provides methods to query and update the cell's state based on the rules of Conway's Game of Life.
+ */
 public class Cell {
 
     private final int x;
@@ -31,6 +36,14 @@ public class Cell {
         this.isAlive = isAlive;
     }
 
+    /**
+     * Updates the grid according to the following rules: <br>
+     * 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.<br>
+     * 2. Any live cell with two or three live neighbors lives on to the next generation.<br>
+     * 3. Any live cell with more than three live neighbors dies, as if by overpopulation.<br>
+     * 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+     * @param liveNeighbors The number of live neighbors surrounding the cell.
+     */
     void evolve(int liveNeighbors) {
         if (isAlive) {
             setAlive(liveNeighbors == 2 || liveNeighbors == 3);
