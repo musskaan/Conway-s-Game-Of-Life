@@ -1,6 +1,10 @@
 package org.swiggy;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * Manages the game logic, including starting and stopping the game loop.
  * Coordinates interactions between the user and the game grid.
@@ -17,13 +21,26 @@ public class GameController {
     }
 
     /**
-     * Starts the game loop asynchronously. The game will evolve continuously until stopped.
+     * Starts the game loop asynchronously. The game will evolve continuously until stopped or all cells are dead.
      */
     public void startGame() {
         isRunning = true;
 
         new Thread(() -> {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
             while (isRunning) {
+                try {
+                    // Check if Enter is pressed
+                    if (reader.ready() && reader.readLine().isEmpty()) {
+                        stopGame();
+                        System.out.println("Game over!");
+                        break;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 gameSpace.evolveGrid();
                 System.out.println(gameSpace);
 
@@ -40,11 +57,17 @@ public class GameController {
                     e.printStackTrace();
                 }
             }
+
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }).start();
     }
 
     /**
-     * Stops the game loop, allowing the game to exit its continuous evolution.
+     * Stops the game loop, allowing the game to exit.
      */
     public void stopGame() {
         isRunning = false;
