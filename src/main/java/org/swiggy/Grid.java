@@ -154,4 +154,18 @@ public class Grid {
     public void setCell(Cell cell, int x, int y) {
         cells[x][y] = cell;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        for (int row = 0; row < getRows(); row++) {
+            for (int column = 0; column < getColumns(); column++) {
+                result.append(cells[row][column].getState());
+            }
+            result.append(System.lineSeparator());
+        }
+
+        return result.toString();
+    }
 }

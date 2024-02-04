@@ -7,12 +7,12 @@ package org.swiggy;
  */
 public class GameController {
 
-    private final Grid game;
+    private final GameSpace gameSpace;
     private static final int TIME_DELAY = 1000;
     static boolean isRunning;
 
-    public GameController(Grid game) {
-        this.game = game;
+    public GameController(GameSpace gameSpace) {
+        this.gameSpace = gameSpace;
         isRunning = false;
     }
 
@@ -24,6 +24,14 @@ public class GameController {
 
         new Thread(() -> {
             while (isRunning) {
+                gameSpace.evolveGrid();
+                System.out.println(gameSpace);
+
+                if (gameSpace.areAllCellsDead()) {
+                    stopGame();
+                    System.out.println("All cells are dead. Game over!");
+                    break;
+                }
 
                 try {
                     Thread.sleep(TIME_DELAY);

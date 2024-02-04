@@ -45,6 +45,20 @@ public class GameSpace {
         return nextCell;
     }
 
+    public boolean areAllCellsDead() {
+        Cell[][] cells = currentGrid.getCells();
+
+        for (int row = 0; row < currentGrid.getRows(); row++) {
+            for (int column = 0; column < currentGrid.getColumns(); column++) {
+                if (cells[row][column] == Cell.ALIVE_CELL) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public Cell[][] getCells() {
         return currentGrid.getCells();
     }
@@ -54,5 +68,10 @@ public class GameSpace {
             throw new IllegalArgumentException("Invalid cell coordinates");
         }
         currentGrid.setCell(cell, row, column);
+    }
+
+    @Override
+    public String toString() {
+        return currentGrid.toString();
     }
 }

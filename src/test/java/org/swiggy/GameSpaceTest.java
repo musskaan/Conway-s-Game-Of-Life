@@ -41,4 +41,27 @@ public class GameSpaceTest {
 
         assertThrows(IllegalArgumentException.class, () -> gameSpace.setCellState(Cell.ALIVE_CELL, 3, 3));
     }
+
+    @Test
+    public void testAreAllCellsDeadInitially() {
+        int rows = 3;
+        int columns = 3;
+        GameSpace gameSpace = new GameSpace(rows, columns);
+
+        assertTrue(gameSpace.areAllCellsDead());
+    }
+
+    @Test
+    public void testAreAllCellsDeadAfterEvolution() {
+        int rows = 3;
+        int columns = 3;
+        GameSpace gameSpace = new GameSpace(rows, columns);
+        gameSpace.setCellState(Cell.ALIVE_CELL, 0, 1);
+        gameSpace.setCellState(Cell.ALIVE_CELL, 1, 1);
+        gameSpace.setCellState(Cell.ALIVE_CELL, 2, 1);
+
+        gameSpace.evolveGrid();
+
+        assertFalse(gameSpace.areAllCellsDead());
+    }
 }
