@@ -6,9 +6,9 @@ Conway's Game of Life is a cellular automation and a zero-player game, meaning t
 
 This Java implementation includes the following classes:
 
-- **Cell:** Represents a cell in a 2D grid and provides methods for evolving its state.
-- **GameEvolver:** Manages the evolution of the game grid according to the rules of Conway's Game of Life.
-- **Grid:** Represents a 2D grid of cells for the game and provides methods to initialize the grid and query cell states.
+- **Cell:** Represents a cell in a 2D grid which represents the possible states of a cell, i.e. dead or alive in the Game of Life.
+- **Grid:** Represents a 2D grid of cells for the game and provides methods to initialize the grid, access and manipulate the state of cells.
+- **GameSpace:** Contains a grid of cells and provides methods for evolving the grid and checking the state of cells.
 - **GameController:** Manages the game logic, including starting and stopping the game loop.
 
 ## Getting Started
@@ -18,7 +18,7 @@ To run the game, follow these steps and adjust the grid dimensions and other par
 1. **Navigate to the Project Directory**:
 
     ```bash
-   cd src
+   cd src/main/java/org/swiggy
 
 2. **Build Pre-requisite**:
 
@@ -28,14 +28,16 @@ To run the game, follow these steps and adjust the grid dimensions and other par
 3. **Steps to Compile and Run the Program**:
 
     ```bash
-   javac GameOfLife.java
-
-   java GameOfLife
+   javac GameOfLifeCLI.java Grid.java Cell.java GameSpace.java GameController.java InputHandler.java
+   cd ../..
+   java GameOfLifeCLI
 
 4. **Provide input**:
-
-    * Press Enter to start the game.
-    * Press Enter again to stop the game.
+   * Enter the desired number of rows
+   * Enter the desired number of columns
+   * Enter the desired seeding percentage
+   * Press Enter to start the game
+   * Press Enter again to stop the game
 
 ### **Gameplay**:
 
