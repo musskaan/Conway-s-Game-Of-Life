@@ -24,8 +24,6 @@ public class GameController {
 
         new Thread(() -> {
             while (isRunning) {
-                game.printCurrentState();
-                Grid.evolve();
 
                 try {
                     Thread.sleep(TIME_DELAY);

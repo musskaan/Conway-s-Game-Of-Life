@@ -1,23 +1,35 @@
 package org.swiggy;
 
-import java.util.Random;
+import static org.swiggy.Cell.ALIVE_CELL;
+import static org.swiggy.Cell.DEAD_CELL;
 
 
 /**
- * Represents a 2D grid of cells for Conway's Game of Life.
- * Provides methods to initialize the grid, evolve the game and query the state of individual cells.
+ * The Grid class represents a 2D grid of cells for Conway's Game of Life.
+ * It provides methods to initialize the grid, access and manipulate the state of cells.
  */
 public class Grid {
 
     private final int rows;
     private final int columns;
-    private static Cell[][] grid;
 
+    /**
+     * Two-dimensional array representing the cells in the grid.
+     */
+    private final Cell[][] cells;
+
+    /**
+     * Constructs a new grid with the specified number of rows and columns,
+     * initializing all cells to be dead.
+     *
+     * @param rows    The number of rows in the grid.
+     * @param columns The number of columns in the grid.
+     */
     public Grid(int rows, int columns) {
         validateGrid(rows, columns);
         this.rows = rows;
         this.columns = columns;
-        initializeGrid();
+        this.cells = initalizeGridWithDeadCells(rows, columns);
     }
 
     private static void validateGrid(final int rows, final int columns) throws IllegalArgumentException {
@@ -27,62 +39,19 @@ public class Grid {
     }
 
     /**
-     * Initializes the grid with cells having random initial states (alive or dead).
-     */
-    public void initializeGrid() {
-        Random random = new Random();
-        grid = new Cell[rows][columns];
-
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
-                int randomValue = random.nextInt(3);
-
-                grid[row][column] = new Cell(row, column);
-                grid[row][column].setAlive(randomValue == 0);
-            }
-        }
-    }
-
-    /**
-     * Evolves the entire grid to the next generation based on the rules of Conway's Game of Life.
-     */
-    public static void evolve() {
-        GameEvolver.evolve(grid);
-    }
-
-    /**
-     * Checks whether a cell at the specified coordinates is alive.
+     * Initializes the grid with dead cells.
      *
-     * @param row    The row index of the cell.
-     * @param column The column index of the cell.
-     * @return {@code true} if the cell is alive, {@code false} otherwise.
+     * @param rows    The number of rows in the grid.
+     * @param columns The number of columns in the grid.
+     * @return A 2D array representing the grid with all cells dead.
      */
-    public boolean isCellAlive(int row, int column) {
-        return isValidCell(row, column) && grid[row][column].isAlive();
-    }
-
-    public void setCellAlive(int row, int col) {
-        if (isValidCell(row, col)) {
-            grid[row][col].setAlive(true);
-        }
-    }
-
-    public void setCellDead(int row, int col) {
-        if (isValidCell(row, col)) {
-            grid[row][col].setAlive(false);
-        }
-    }
-
-    private boolean isValidCell(int row, int col) {
-        return row >= 0 && row < rows && col >= 0 && col < columns;
-    }
-
-    void printCurrentState() {
+    private Cell[][] initalizeGridWithDeadCells(int rows, int columns) {
+        Cell[][] cells = new Cell[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                System.out.print(isCellAlive(i, j) ? "O " : ". ");
+                cells[i][j] = DEAD_CELL;
             }
-            System.out.println();
         }
+        return cells;
     }
 }
