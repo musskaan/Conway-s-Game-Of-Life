@@ -28,9 +28,9 @@ To run the game, follow these steps and adjust the grid dimensions and other par
 3. **Steps to Compile and Run the Program**:
 
     ```bash
-   javac GameOfLifeCLI.java Grid.java Cell.java GameSpace.java GameController.java InputHandler.java
+   javac GameSetup.java Grid.java Cell.java GameSpace.java Game.java UserInput.java
    cd ../..
-   java GameOfLifeCLI
+   java GameSetup
 
 4. **Provide input**:
    * Enter the desired number of rows

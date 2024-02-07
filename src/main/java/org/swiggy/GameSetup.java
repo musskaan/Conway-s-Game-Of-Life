@@ -8,23 +8,23 @@ import java.util.Scanner;
 import static org.swiggy.Cell.ALIVE_CELL;
 
 
-public class GameOfLifeCLI {
+public class GameSetup {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int rows = InputHandler.promptForInt("Enter the number of rows: ");
-        int columns = InputHandler.promptForInt("Enter the number of columns: ");
-        int seedingPercentage = InputHandler.promptForInt("Enter the seeding percentage (0-100): ");
+        int rows = UserInput.readInteger("Enter the number of rows: ");
+        int columns = UserInput.readInteger("Enter the number of columns: ");
+        int seedingPercentage = UserInput.readInteger("Enter the seeding percentage (0-100): ");
 
         GameSpace gameSpace = new GameSpace(rows, columns);
         seedGameSpace(gameSpace, rows, columns, seedingPercentage);
 
-        GameController gameController = new GameController(gameSpace);
+        Game game = new Game(gameSpace);
 
         System.out.println("Press Enter to start and stop the game.");
         scanner.nextLine();
 
-        gameController.startGame();
+        game.start();
     }
 
     private static void seedGameSpace(GameSpace gameSpace, int rows, int columns, int seedingPercentage) {

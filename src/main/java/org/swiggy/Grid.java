@@ -25,7 +25,7 @@ public class Grid {
      * @param rows    The number of rows in the grid.
      * @param columns The number of columns in the grid.
      */
-    public Grid(int rows, int columns) {
+    public Grid(final int rows, final int columns) {
         validateGrid(rows, columns);
         this.rows = rows;
         this.columns = columns;
@@ -38,7 +38,7 @@ public class Grid {
      * @param cells The initial state of cells in the grid.
      * @throws IllegalArgumentException if the initialCells array is null or empty.
      */
-    public Grid(Cell[][] cells) {
+    public Grid(final Cell[][] cells) {
         if (cells == null || cells.length == 0 || cells[0].length == 0) {
             throw new IllegalArgumentException("Invalid initialCells");
         }
@@ -63,7 +63,7 @@ public class Grid {
      * @param columns The number of columns in the grid.
      * @return A 2D array representing the grid with all cells dead.
      */
-    private Cell[][] initalizeGridWithDeadCells(int rows, int columns) {
+    private Cell[][] initalizeGridWithDeadCells(final int rows, final int columns) {
         Cell[][] cells = new Cell[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -74,53 +74,55 @@ public class Grid {
     }
 
     /**
-     * Gets the number of live neighbors around a cell at the specified coordinates.
+     * Gets the count of alive neighbors surrounding the specified cell.
      *
-     * @param x The x-coordinate of the cell.
-     * @param y The y-coordinate of the cell.
+     * @param targetRow The row index of the target cell.
+     * @param targetColumn The column index of the target cell.
      * @return The number of live neighbors around the specified cell.
      */
-    public int getAliveNeighboursAt(int x, int y) {
+    public int countAliveNeighborsForCell(final int targetRow, final int targetColumn) {
         int aliveNeighbourCount = 0;
-        for (int dx = x - 1; dx <= x + 1; dx++) {
-            for (int dy = y - 1; dy <= y + 1; dy++) {
-                if (!isCellItself(dx, dy, x, y)) {
-                    aliveNeighbourCount += isAliveInCell(dx, dy);
+
+        for (int row = targetRow - 1; row <= targetRow + 1; row++) {
+            for (int column = targetColumn - 1; column <= targetColumn + 1; column++) {
+                if (!isCellItself(row, column, targetRow, targetColumn)) {
+                    aliveNeighbourCount += isAliveInCell(row, column);
                 }
             }
         }
+
         return aliveNeighbourCount;
     }
 
     /**
-     * Checks if the given coordinates represent the same cell.
+     * Checks if the specified cell is the target cell itself.
      *
      * @return true if the coordinates represent the same cell, false otherwise.
      */
-    private boolean isCellItself(int x1, int y1, int x2, int y2) {
-        return (x1 == x2) && (y1 == y2);
+    private boolean isCellItself(final int row, final int column, final int targetRow, final int targetColumn) {
+        return (row == targetRow) && (column == targetColumn);
     }
 
     /**
-     * Checks if the cell at the specified coordinates is alive.
+     * Checks if the cell at the specified index is alive.
      *
-     * @param x The x-coordinate of the cell.
-     * @param y The y-coordinate of the cell.
+     * @param row The row index of the cell.
+     * @param column The column index of the cell.
      * @return 1 if the cell is alive, 0 if the cell is dead or the coordinates are out of bounds.
      */
-    private int isAliveInCell(int x, int y) {
-        if (isValidCell(x, y)) {
+    private int isAliveInCell(final int row, final int column) {
+        if (isValidCell(row, column)) {
             return 0;
         }
-        if (cells[x][y] == ALIVE_CELL) {
+        if (cells[row][column] == ALIVE_CELL) {
             return 1;
         } else {
             return 0;
         }
     }
 
-    private boolean isValidCell(int x, int y) {
-        return (x < 0 || x > getRows() - 1) || (y < 0 || y > getColumns() - 1);
+    private boolean isValidCell(final int row, final int column) {
+        return (row < 0 || row > getRows() - 1) || (column < 0 || column > getColumns() - 1);
     }
 
 
@@ -140,19 +142,19 @@ public class Grid {
         return contentCopy;
     }
 
-    public Cell getCellAt(int x, int y) {
-        return cells[x][y];
+    public Cell getCellAt(final int row, final int column) {
+        return cells[row][column];
     }
 
     /**
-     * Sets the state of the cell at the specified coordinates.
+     * Sets the state of the cell at the specified index.
      *
      * @param cell The new state of the cell.
-     * @param x    The x-coordinate of the cell.
-     * @param y    The y-coordinate of the cell.
+     * @param row    The row index of the cell.
+     * @param column    The column index of the cell.
      */
-    public void setCell(Cell cell, int x, int y) {
-        cells[x][y] = cell;
+    public void setCell(final Cell cell, final int row, final int column) {
+        cells[row][column] = cell;
     }
 
     @Override

@@ -9,13 +9,13 @@ import java.io.InputStreamReader;
  * Manages the game logic, including starting and stopping the game loop.
  * Coordinates interactions between the user and the game grid.
  */
-public class GameController {
+public class Game {
 
     private final GameSpace gameSpace;
     private static final int TIME_DELAY = 1000;
     static boolean isRunning;
 
-    public GameController(GameSpace gameSpace) {
+    public Game(final GameSpace gameSpace) {
         this.gameSpace = gameSpace;
         isRunning = false;
     }
@@ -23,7 +23,7 @@ public class GameController {
     /**
      * Starts the game loop asynchronously. The game will evolve continuously until stopped or all cells are dead.
      */
-    public void startGame() {
+    public void start() {
         isRunning = true;
 
         new Thread(() -> {
@@ -33,7 +33,7 @@ public class GameController {
                 try {
                     // Check if Enter is pressed
                     if (reader.ready() && reader.readLine().isEmpty()) {
-                        stopGame();
+                        stop();
                         System.out.println("Game over!");
                         break;
                     }
@@ -45,7 +45,7 @@ public class GameController {
                 System.out.println(gameSpace);
 
                 if (gameSpace.areAllCellsDead()) {
-                    stopGame();
+                    stop();
                     System.out.println("All cells are dead. Game over!");
                     break;
                 }
@@ -69,7 +69,7 @@ public class GameController {
     /**
      * Stops the game loop, allowing the game to exit.
      */
-    public void stopGame() {
+    public void stop() {
         isRunning = false;
     }
 }

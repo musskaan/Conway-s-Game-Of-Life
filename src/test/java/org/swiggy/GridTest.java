@@ -67,7 +67,7 @@ class GridTest {
     }
 
     @Test
-    public void testGetLiveNeighboursAtACell_success() {
+    public void testCountAliveNeighborsForCell_success() {
         Cell[][] initialCells = {
                 {Cell.ALIVE_CELL, Cell.ALIVE_CELL, Cell.DEAD_CELL},
                 {Cell.ALIVE_CELL, Cell.DEAD_CELL, Cell.DEAD_CELL},
@@ -76,7 +76,7 @@ class GridTest {
 
         Grid grid = new Grid(initialCells);
 
-        int liveNeighbours = grid.getAliveNeighboursAt(0, 0);
+        int liveNeighbours = grid.countAliveNeighborsForCell(0, 0);
 
         assertEquals(2, liveNeighbours);
     }

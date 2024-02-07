@@ -5,29 +5,29 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class GameControllerTest {
+class GameTest {
 
     @Test
     void testStartGameCreatesThread_SetsIsRunning_RunsGameLoop() {
         GameSpace mockGameSpace = mock(GameSpace.class);
-        GameController gameController = new GameController(mockGameSpace);
+        Game game = new Game(mockGameSpace);
 
-        assertFalse(GameController.isRunning);
+        assertFalse(Game.isRunning);
 
-        gameController.startGame();
+        game.start();
 
-        assertTrue(GameController.isRunning);
+        assertTrue(Game.isRunning);
         verify(mockGameSpace, atLeastOnce()).evolveGrid();
     }
 
     @Test
     public void testStartGameTerminatesWhenAllCellsDead() {
         GameSpace mockGameSpace = mock(GameSpace.class);
-        GameController gameController = new GameController(mockGameSpace);
+        Game game = new Game(mockGameSpace);
 
         when(mockGameSpace.areAllCellsDead()).thenReturn(true);
 
-        gameController.startGame();
+        game.start();
 
         verify(mockGameSpace, times(1)).evolveGrid();
     }
@@ -35,14 +35,14 @@ class GameControllerTest {
     @Test
     void testStopGameSetsIsRunningToFalse() {
         GameSpace mockedGameSpace = mock(GameSpace.class);
-        GameController gameController = new GameController(mockedGameSpace);
+        Game game = new Game(mockedGameSpace);
 
-        gameController.startGame();
+        game.start();
 
-        assertTrue(GameController.isRunning);
+        assertTrue(Game.isRunning);
 
-        gameController.stopGame();
+        game.stop();
 
-        assertFalse(GameController.isRunning);
+        assertFalse(Game.isRunning);
     }
 }
