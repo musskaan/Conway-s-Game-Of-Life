@@ -24,7 +24,12 @@ public class GameSetup {
         System.out.println("Press Enter to start and stop the game.");
         scanner.nextLine();
 
-        game.start();
+        try {
+            game.start();
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private static void seedGameSpace(GameSpace gameSpace, int rows, int columns, int seedingPercentage) {

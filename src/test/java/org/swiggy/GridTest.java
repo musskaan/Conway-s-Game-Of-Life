@@ -2,7 +2,9 @@ package org.swiggy;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class GridTest {
 
@@ -18,17 +20,15 @@ class GridTest {
 
     @Test
     public void testGridInitializationWithDeadCells_successfullyInitialized() {
-        int rows = 3;
-        int columns = 3;
-        Grid grid = new Grid(rows, columns);
+        Grid grid = new Grid(3, 3);
 
         Cell[][] cells = grid.getCells();
 
-        assertEquals(rows, grid.getRows());
-        assertEquals(columns, grid.getColumns());
+        assertEquals(3, grid.getRows());
+        assertEquals(3, grid.getColumns());
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 assertEquals(Cell.DEAD_CELL, cells[i][j]);
             }
         }
@@ -83,9 +83,7 @@ class GridTest {
 
     @Test
     public void testSetCellToAlive_success() {
-        int rows = 3;
-        int columns = 3;
-        Grid grid = new Grid(rows, columns);
+        Grid grid = new Grid(3, 3);
 
         Cell[][] cellsBefore = grid.getCells();
 

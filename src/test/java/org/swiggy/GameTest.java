@@ -2,7 +2,8 @@ package org.swiggy;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class GameTest {
@@ -30,19 +31,5 @@ class GameTest {
         game.start();
 
         verify(mockGameSpace, times(1)).evolveGrid();
-    }
-
-    @Test
-    void testStopGameSetsIsRunningToFalse() {
-        GameSpace mockedGameSpace = mock(GameSpace.class);
-        Game game = new Game(mockedGameSpace);
-
-        game.start();
-
-        assertTrue(Game.isRunning);
-
-        game.stop();
-
-        assertFalse(Game.isRunning);
     }
 }

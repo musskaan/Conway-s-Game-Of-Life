@@ -38,7 +38,7 @@ public class Game {
                         break;
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    handleIOException(e);
                 }
 
                 gameSpace.evolveGrid();
@@ -53,15 +53,17 @@ public class Game {
                 try {
                     Thread.sleep(TIME_DELAY);
                 } catch (InterruptedException e) {
+                    stop();
                     Thread.currentThread().interrupt();
-                    e.printStackTrace();
+                    System.err.println("Current thread interrupted: " + e.getMessage());
+                    throw new RuntimeException("Current thread interrupted", e);
                 }
             }
 
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                handleIOException(e);
             }
         }).start();
     }
@@ -69,7 +71,12 @@ public class Game {
     /**
      * Stops the game loop, allowing the game to exit.
      */
-    public void stop() {
+    private void stop() {
         isRunning = false;
+    }
+
+    private void handleIOException(IOException e) {
+        System.err.println("An unexpected I/O error occurred: " + e.getMessage());
+        throw new RuntimeException("Failed to perform I/O operation", e);
     }
 }
